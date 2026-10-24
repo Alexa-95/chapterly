@@ -1,0 +1,2 @@
+# Opcjonalnie: klucz Google Books API (bez klucza wyszukiwarka też działa, ale z mniejszym limitem zapytań)
+GOOGLE_BOOKS_API_KEY=
