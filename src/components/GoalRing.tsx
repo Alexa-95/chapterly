@@ -22,7 +22,7 @@ export default function GoalRing({ done, target, size = 140 }: { done: number; t
       </svg>
       <div className="ring-label">
         <strong>{done}</strong>
-        <span>z {target}</span>
+        <span>of {target}</span>
       </div>
     </div>
   );

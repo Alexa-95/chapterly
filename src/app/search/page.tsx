@@ -7,7 +7,7 @@ import { STATUS_LABELS } from "@/lib/format";
 import { GoogleBooksError, searchBooks, type BookResult } from "@/lib/google-books";
 import BookCover from "@/components/BookCover";
 
-export const metadata = { title: "Szukaj" };
+export const metadata = { title: "Search" };
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const q = (await searchParams).q?.trim() ?? "";
@@ -20,8 +20,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     } catch (e) {
       error =
         e instanceof GoogleBooksError && (e.status === 429 || e.status === 403)
-          ? "Przekroczono limit zapytań Google Books. Dodaj klucz GOOGLE_BOOKS_API_KEY do pliku .dev.vars (instrukcja w README)."
-          : "Nie udało się połączyć z Google Books. Spróbuj ponownie za chwilę.";
+          ? "Google Books request limit exceeded. Add a GOOGLE_BOOKS_API_KEY to .dev.vars (see the README)."
+          : "Couldn't connect to Google Books. Please try again in a moment.";
     }
   }
 
@@ -36,17 +36,17 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   return (
     <div className="stack-lg">
       <header className="page-head">
-        <h1>Wyszukiwarka książek</h1>
-        <p className="muted">Szukaj po tytule, autorze lub ISBN — wyniki pochodzą z Google Books.</p>
+        <h1>Book search</h1>
+        <p className="muted">Search by title, author or ISBN — results come from Google Books.</p>
       </header>
 
       <form className="search-bar" action="/search">
-        <input name="q" defaultValue={q} placeholder="np. Olga Tokarczuk, „Lalka”, 9788308049393" autoFocus />
-        <button className="btn btn-primary" type="submit">Szukaj</button>
+        <input name="q" defaultValue={q} placeholder="e.g. Olga Tokarczuk, “Flights”, 9780525534198" autoFocus />
+        <button className="btn btn-primary" type="submit">Search</button>
       </form>
 
       {error && <p className="notice">{error}</p>}
-      {q && !error && !results.length && <p className="muted">Nic nie znaleziono dla „{q}”.</p>}
+      {q && !error && !results.length && <p className="muted">Nothing found for “{q}”.</p>}
 
       <ul className="results">
         {results.map((r) => {
@@ -59,9 +59,9 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
               <div className="result-body">
                 <Link href={`/books/${r.id}`} className="result-title">{r.title}</Link>
                 <p className="muted small">
-                  {r.authors.join(", ") || "Autor nieznany"}
+                  {r.authors.join(", ") || "Unknown author"}
                   {r.publishedDate && ` · ${r.publishedDate.slice(0, 4)}`}
-                  {r.pageCount ? ` · ${r.pageCount} str.` : ""}
+                  {r.pageCount ? ` · ${r.pageCount} pages` : ""}
                 </p>
                 <div className="row">
                   {status ? (
@@ -69,10 +69,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                   ) : (
                     <>
                       <form action={addBook.bind(null, r, "want")}>
-                        <button className="btn btn-small">+ Chcę przeczytać</button>
+                        <button className="btn btn-small">+ Want to read</button>
                       </form>
                       <form action={addBook.bind(null, r, "reading")}>
-                        <button className="btn btn-small btn-ghost">Zaczynam czytać</button>
+                        <button className="btn btn-small btn-ghost">Start reading</button>
                       </form>
                     </>
                   )}

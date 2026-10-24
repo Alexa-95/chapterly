@@ -5,12 +5,12 @@ import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
 
 const LINKS = [
-  { href: "/", label: "Pulpit" },
-  { href: "/search", label: "Szukaj" },
-  { href: "/shelves", label: "Półki" },
-  { href: "/goals", label: "Cele" },
-  { href: "/stats", label: "Statystyki" },
-  { href: "/history", label: "Historia" },
+  { href: "/", label: "Dashboard" },
+  { href: "/search", label: "Search" },
+  { href: "/shelves", label: "Shelves" },
+  { href: "/goals", label: "Goals" },
+  { href: "/stats", label: "Stats" },
+  { href: "/history", label: "History" },
 ];
 
 export default function Nav() {

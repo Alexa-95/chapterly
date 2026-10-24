@@ -6,7 +6,7 @@ import { getDb } from "@/lib/db";
 import { STATUS_LABELS } from "@/lib/format";
 import BookCard from "@/components/BookCard";
 
-export const metadata = { title: "Półki" };
+export const metadata = { title: "Shelves" };
 
 export default async function ShelvesPage({ searchParams }: { searchParams: Promise<{ shelf?: string }> }) {
   const db = getDb();
@@ -43,12 +43,12 @@ export default async function ShelvesPage({ searchParams }: { searchParams: Prom
     ).map((r) => r.book);
   }
 
-  const title = isStatus ? STATUS_LABELS[selected as BookStatus] : custom?.name ?? "Półka";
+  const title = isStatus ? STATUS_LABELS[selected as BookStatus] : custom?.name ?? "Shelf";
 
   return (
     <div className="shelves-layout">
       <aside className="shelf-nav card">
-        <p className="eyebrow">Statusy</p>
+        <p className="eyebrow">Statuses</p>
         {BOOK_STATUSES.map((s) => (
           <Link key={s} href={`/shelves?shelf=${s}`} className={selected === s ? "active" : undefined}>
             <span>{STATUS_LABELS[s]}</span>
@@ -56,7 +56,7 @@ export default async function ShelvesPage({ searchParams }: { searchParams: Prom
           </Link>
         ))}
 
-        <p className="eyebrow">Moje półki</p>
+        <p className="eyebrow">My shelves</p>
         {customShelves.map((s) => (
           <Link key={s.id} href={`/shelves?shelf=${s.id}`} className={selected === String(s.id) ? "active" : undefined}>
             <span>{s.name}</span>
@@ -64,8 +64,8 @@ export default async function ShelvesPage({ searchParams }: { searchParams: Prom
           </Link>
         ))}
         <form action={createShelf} className="new-shelf">
-          <input name="name" placeholder="Nowa półka…" maxLength={60} required />
-          <button className="btn btn-small" aria-label="Dodaj półkę">+</button>
+          <input name="name" placeholder="New shelf…" maxLength={60} required />
+          <button className="btn btn-small" aria-label="Add shelf">+</button>
         </form>
       </aside>
 
@@ -74,7 +74,7 @@ export default async function ShelvesPage({ searchParams }: { searchParams: Prom
           <h1>{title}</h1>
           {custom && (
             <form action={deleteShelf.bind(null, custom.id)}>
-              <button className="btn btn-small btn-ghost">Usuń półkę</button>
+              <button className="btn btn-small btn-ghost">Delete shelf</button>
             </form>
           )}
         </div>
@@ -84,11 +84,11 @@ export default async function ShelvesPage({ searchParams }: { searchParams: Prom
           </div>
         ) : (
           <div className="empty card">
-            <p>Ta półka jest jeszcze pusta.</p>
+            <p>This shelf is still empty.</p>
             {custom ? (
-              <p className="muted small">Dodawaj książki do tej półki z ich strony szczegółów.</p>
+              <p className="muted small">Add books to this shelf from their details page.</p>
             ) : (
-              <Link href="/search" className="link">Dodaj książkę z wyszukiwarki →</Link>
+              <Link href="/search" className="link">Add a book from search →</Link>
             )}
           </div>
         )}

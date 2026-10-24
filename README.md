@@ -1,52 +1,52 @@
-# Chapterly — dziennik czytelniczy
+# Chapterly — reading journal
 
-Aplikacja do śledzenia książek, czytania i własnych recenzji.
+An app for tracking your books, reading and your own reviews.
 
-**Funkcje:** wyszukiwarka książek (Google Books), półki (statusy + własne półki), cele czytelnicze, oceny i recenzje, statystyki, historia aktywności.
+**Features:** book search (Google Books), shelves (statuses + custom shelves), reading goals, ratings and reviews, stats, activity history.
 
-**Stack:** Next.js 16 (App Router, Server Actions) · Google Books API · Cloudflare D1 · Drizzle ORM · OpenNext (deploy na Cloudflare Workers)
+**Stack:** Next.js 16 (App Router, Server Actions) · Google Books API · Cloudflare D1 · Drizzle ORM · OpenNext (deployed to Cloudflare Workers)
 
-## Uruchomienie lokalne
+## Running locally
 
 ```bash
 npm install
-cp .dev.vars.example .dev.vars        # wpisz klucz GOOGLE_BOOKS_API_KEY
-npm run db:migrate:local               # tworzy tabele w lokalnej bazie D1 (.wrangler/)
+cp .dev.vars.example .dev.vars        # add your GOOGLE_BOOKS_API_KEY
+npm run db:migrate:local               # creates the tables in the local D1 database (.wrangler/)
 npm run dev                            # http://localhost:3000
 ```
 
-### Klucz Google Books API
+### Google Books API key
 
-1. Wejdź na https://console.cloud.google.com/ i utwórz projekt.
-2. *APIs & Services → Library* → wyszukaj **Books API** → **Enable**.
+1. Go to https://console.cloud.google.com/ and create a project.
+2. *APIs & Services → Library* → search for **Books API** → **Enable**.
 3. *APIs & Services → Credentials* → **Create credentials → API key**.
-4. Wklej klucz do `.dev.vars`: `GOOGLE_BOOKS_API_KEY=twój_klucz`.
+4. Paste the key into `.dev.vars`: `GOOGLE_BOOKS_API_KEY=your_key`.
 
-## Zmiany w bazie
+## Database changes
 
-1. Edytuj `src/db/schema.ts`.
-2. `npm run db:generate` — Drizzle tworzy nową migrację w `drizzle/`.
-3. `npm run db:migrate:local` (lokalnie) lub `npm run db:migrate:remote` (produkcja).
+1. Edit `src/db/schema.ts`.
+2. `npm run db:generate` — Drizzle creates a new migration in `drizzle/`.
+3. `npm run db:migrate:local` (local) or `npm run db:migrate:remote` (production).
 
-## Wdrożenie na Cloudflare
+## Deploying to Cloudflare
 
 ```bash
 npx wrangler login
-npx wrangler d1 create chapterly-db     # skopiuj database_id do wrangler.jsonc
+npx wrangler d1 create chapterly-db     # copy the database_id into wrangler.jsonc
 npm run db:migrate:remote
 npx wrangler secret put GOOGLE_BOOKS_API_KEY
 npm run deploy
 ```
 
-## Struktura
+## Structure
 
 ```
 src/
-  app/            strony: pulpit, search, shelves, books/[id], goals, stats, history
-  components/     okładki, gwiazdki, pasek postępu, pierścień celu, wykres
-  db/schema.ts    tabele: books, shelves, shelf_books, goals, activity
+  app/            pages: dashboard, search, shelves, books/[id], goals, stats, history
+  components/     covers, stars, progress bar, goal ring, chart
+  db/schema.ts    tables: books, shelves, shelf_books, goals, activity
   lib/            actions.ts (Server Actions), google-books.ts, queries.ts, stats.ts
-drizzle/          migracje SQL
+drizzle/          SQL migrations
 ```
 
-Aplikacja jest jednoosobowa (bez logowania) — wszystkie dane trafiają do jednej bazy D1.
+The app is single-user (no login) — all data goes into a single D1 database.

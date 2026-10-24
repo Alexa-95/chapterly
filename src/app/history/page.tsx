@@ -3,7 +3,7 @@ import { describeActivity, formatDate, formatTime } from "@/lib/format";
 import { getActivityFeed, type FeedItem } from "@/lib/queries";
 import BookCover from "@/components/BookCover";
 
-export const metadata = { title: "Historia" };
+export const metadata = { title: "History" };
 
 export default async function HistoryPage() {
   const feed = await getActivityFeed(300);
@@ -17,14 +17,14 @@ export default async function HistoryPage() {
   return (
     <div className="stack-lg">
       <header className="page-head">
-        <h1>Historia</h1>
-        <p className="muted">Dziennik Twoich czytelniczych chwil.</p>
+        <h1>History</h1>
+        <p className="muted">A journal of your reading moments.</p>
       </header>
 
       {feed.length === 0 && (
         <div className="empty card">
-          <p>Historia jest jeszcze pusta.</p>
-          <Link href="/search" className="link">Dodaj pierwszą książkę →</Link>
+          <p>Your history is still empty.</p>
+          <Link href="/search" className="link">Add your first book →</Link>
         </div>
       )}
 

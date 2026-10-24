@@ -5,7 +5,7 @@ const TINTS = ["#e7efe6", "#f3e6e4", "#ece8f3", "#f4ecdc", "#e3edf1"];
 
 export default function BookCover({ title, thumbnail, size = "md" }: Props) {
   if (thumbnail) {
-    return <img src={thumbnail} alt={`Okładka: ${title}`} className={`cover cover-${size}`} loading="lazy" />;
+    return <img src={thumbnail} alt={`Cover: ${title}`} className={`cover cover-${size}`} loading="lazy" />;
   }
   const tint = TINTS[title.length % TINTS.length];
   return (

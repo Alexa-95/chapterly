@@ -8,7 +8,7 @@ export async function getFinishedBooks() {
   });
 }
 
-/** Liczba przeczytanych książek w podziale na lata. */
+/** Number of finished books per year. */
 export async function finishedPerYear() {
   const finished = await getFinishedBooks();
   const perYear = new Map<number, number>();
@@ -19,7 +19,7 @@ export async function finishedPerYear() {
   return perYear;
 }
 
-/** Strony zapisane jako postęp w danym roku, w podziale na miesiące. */
+/** Pages logged as progress in a given year, per month. */
 export async function pagesPerMonth(year: number) {
   const rows = await getDb()
     .select({ value: activity.value, createdAt: activity.createdAt })

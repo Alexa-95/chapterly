@@ -6,7 +6,7 @@ import { MONTHS_SHORT, booksWord, pagesWord } from "@/lib/format";
 import { getFinishedBooks, pagesPerMonth } from "@/lib/stats";
 import BarChart from "@/components/BarChart";
 
-export const metadata = { title: "Statystyki" };
+export const metadata = { title: "Stats" };
 
 function topCounts(values: (string | null)[], limit = 5) {
   const counts = new Map<string, number>();
@@ -50,8 +50,8 @@ export default async function StatsPage({ searchParams }: { searchParams: Promis
     <div className="stack-lg">
       <header className="page-head section-head">
         <div>
-          <h1>Statystyki</h1>
-          <p className="muted">Twój rok w liczbach.</p>
+          <h1>Stats</h1>
+          <p className="muted">Your year in numbers.</p>
         </div>
         <nav className="chips">
           {years.map((y) => (
@@ -63,24 +63,24 @@ export default async function StatsPage({ searchParams }: { searchParams: Promis
       </header>
 
       <div className="tiles">
-        <div className="tile card"><span className="tile-value">{inYear.length}</span><span className="muted small">przeczytanych w {year}</span></div>
-        <div className="tile card"><span className="tile-value">{pagesInYear.toLocaleString("pl-PL")}</span><span className="muted small">stron w przeczytanych</span></div>
-        <div className="tile card"><span className="tile-value">{avgRating}</span><span className="muted small">średnia ocena</span></div>
-        <div className="tile card"><span className="tile-value">{avgDays ?? "—"}</span><span className="muted small">dni na książkę (średnio)</span></div>
+        <div className="tile card"><span className="tile-value">{inYear.length}</span><span className="muted small">read in {year}</span></div>
+        <div className="tile card"><span className="tile-value">{pagesInYear.toLocaleString("en-US")}</span><span className="muted small">pages in finished books</span></div>
+        <div className="tile card"><span className="tile-value">{avgRating}</span><span className="muted small">average rating</span></div>
+        <div className="tile card"><span className="tile-value">{avgDays ?? "—"}</span><span className="muted small">days per book (average)</span></div>
       </div>
 
       <div className="detail-grid">
         <section className="card stack">
-          <h2>Przeczytane książki</h2>
+          <h2>Books read</h2>
           <BarChart
-            caption={`Ukończone książki w poszczególnych miesiącach ${year}`}
+            caption={`Books finished per month in ${year}`}
             data={booksByMonth.map((v, i) => ({ label: MONTHS_SHORT[i], value: v, hint: booksWord(v) }))}
           />
         </section>
         <section className="card stack">
-          <h2>Przeczytane strony</h2>
+          <h2>Pages read</h2>
           <BarChart
-            caption={`Strony zapisane jako postęp w ${year}`}
+            caption={`Pages logged as progress in ${year}`}
             data={pagesByMonth.map((v, i) => ({ label: MONTHS_SHORT[i], value: v, hint: pagesWord(v) }))}
           />
         </section>
@@ -88,7 +88,7 @@ export default async function StatsPage({ searchParams }: { searchParams: Promis
 
       <div className="detail-grid three">
         <section className="card stack">
-          <h2>Rozkład ocen</h2>
+          <h2>Rating distribution</h2>
           <ul className="hbars">
             {ratingDist.map((d) => (
               <li key={d.n}>
@@ -99,11 +99,11 @@ export default async function StatsPage({ searchParams }: { searchParams: Promis
             ))}
           </ul>
         </section>
-        <TopList title="Ulubieni autorzy" items={topCounts(finished.map((b) => b.authors))} />
-        <TopList title="Gatunki" items={topCounts(finished.map((b) => b.categories))} />
+        <TopList title="Favourite authors" items={topCounts(finished.map((b) => b.authors))} />
+        <TopList title="Genres" items={topCounts(finished.map((b) => b.categories))} />
       </div>
 
-      <p className="muted small">W bibliotece łącznie: {booksWord(total)}.</p>
+      <p className="muted small">Total in library: {booksWord(total)}.</p>
     </div>
   );
 }
@@ -122,7 +122,7 @@ function TopList({ title, items }: { title: string; items: [string, number][] })
           ))}
         </ol>
       ) : (
-        <p className="muted small">Pojawi się po przeczytaniu pierwszych książek.</p>
+        <p className="muted small">Will appear once you finish your first books.</p>
       )}
     </section>
   );

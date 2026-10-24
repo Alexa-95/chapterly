@@ -32,7 +32,7 @@ function toResult(v: Volume): BookResult {
   const thumb = info.imageLinks?.thumbnail ?? info.imageLinks?.smallThumbnail ?? null;
   return {
     id: v.id,
-    title: [info.title, info.subtitle].filter(Boolean).join(": ") || "Bez tytułu",
+    title: [info.title, info.subtitle].filter(Boolean).join(": ") || "Untitled",
     authors: info.authors ?? [],
     thumbnail: thumb ? thumb.replace(/^http:/, "https:") : null,
     description: info.description ? stripHtml(info.description) : null,

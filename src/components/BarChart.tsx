@@ -1,6 +1,6 @@
 type Bar = { label: string; value: number; hint: string };
 
-/** Prosty wykres słupkowy (jedna seria) z podpowiedzią po najechaniu. */
+/** Simple single-series bar chart with a hover tooltip. */
 export default function BarChart({ data, caption }: { data: Bar[]; caption: string }) {
   const max = Math.max(1, ...data.map((d) => d.value));
   return (

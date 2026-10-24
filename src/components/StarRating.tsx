@@ -13,7 +13,7 @@ export default function StarRating({ bookId, value, readOnly }: Props) {
 
   if (readOnly || !bookId) {
     return (
-      <span className="stars stars-static" aria-label={`Ocena ${value ?? 0} na 5`}>
+      <span className="stars stars-static" aria-label={`Rated ${value ?? 0} out of 5`}>
         {[1, 2, 3, 4, 5].map((n) => (
           <span key={n} className={n <= (value ?? 0) ? "on" : undefined}>★</span>
         ))}
@@ -36,7 +36,7 @@ export default function StarRating({ bookId, value, readOnly }: Props) {
           className={n <= shown ? "on" : undefined}
           onMouseEnter={() => setHover(n)}
           onClick={() => choose(n)}
-          aria-label={`Oceń na ${n}`}
+          aria-label={`Rate ${n}`}
         >
           ★
         </button>

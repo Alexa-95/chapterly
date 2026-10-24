@@ -15,7 +15,7 @@ export default function BookCard({ book }: { book: Book }) {
           <>
             <ProgressBar value={book.currentPage} max={book.pageCount} />
             <p className="tiny muted">
-              {book.currentPage} / {book.pageCount} str.
+              {book.currentPage} / {book.pageCount} pages
             </p>
           </>
         ) : null}

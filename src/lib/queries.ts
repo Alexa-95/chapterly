@@ -2,7 +2,7 @@ import { desc, eq } from "drizzle-orm";
 import { activity, books } from "@/db/schema";
 import { getDb } from "@/lib/db";
 
-/** Aktywność razem z tytułem i okładką książki, od najnowszej. */
+/** Activity with the book's title and cover, newest first. */
 export function getActivityFeed(limit?: number) {
   const q = getDb()
     .select({

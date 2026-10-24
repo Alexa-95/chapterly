@@ -8,5 +8,5 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;
 
-// Udostępnia bindingi Cloudflare (np. bazę D1) podczas `next dev`
+// Exposes Cloudflare bindings (e.g. the D1 database) during `next dev`
 initOpenNextCloudflareForDev();

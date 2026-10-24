@@ -1,4 +1,4 @@
-// Możesz wygenerować ten plik ponownie poleceniem `npm run cf-typegen`
+// You can regenerate this file with `npm run cf-typegen`
 interface CloudflareEnv {
   DB: D1Database;
   ASSETS: Fetcher;

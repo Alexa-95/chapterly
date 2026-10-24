@@ -7,7 +7,7 @@ import { finishedPerYear } from "@/lib/stats";
 import GoalRing from "@/components/GoalRing";
 import ProgressBar from "@/components/ProgressBar";
 
-export const metadata = { title: "Cele" };
+export const metadata = { title: "Goals" };
 
 export default async function GoalsPage() {
   const year = new Date().getFullYear();
@@ -18,41 +18,41 @@ export default async function GoalsPage() {
   const current = allGoals.find((g) => g.year === year);
   const done = perYear.get(year) ?? 0;
 
-  // Ile książek miesięcznie trzeba czytać, by zdążyć
+  // How many books per month are needed to stay on track
   const monthsLeft = 12 - new Date().getMonth();
   const perMonth = current ? Math.max(0, Math.ceil((current.target - done) / monthsLeft)) : 0;
 
   return (
     <div className="stack-lg">
       <header className="page-head">
-        <h1>Cele czytelnicze</h1>
-        <p className="muted">Małe postanowienie, wiele dobrych wieczorów.</p>
+        <h1>Reading goals</h1>
+        <p className="muted">A small resolution, many good evenings.</p>
       </header>
 
       <section className="card goal-card">
         <GoalRing done={done} target={current?.target ?? 0} size={170} />
         <div className="stack">
-          <h2>Rok {year}</h2>
+          <h2>{year}</h2>
           {current ? (
             <p className="muted">
               {done >= current.target
-                ? "Cel osiągnięty — gratulacje! 🌿"
-                : `Przeczytano ${booksWord(done)}. Aby zdążyć, potrzeba ok. ${booksWord(perMonth)} miesięcznie.`}
+                ? "Goal reached — congratulations! 🌿"
+                : `You've read ${booksWord(done)}. To stay on track, you need about ${booksWord(perMonth)} a month.`}
             </p>
           ) : (
-            <p className="muted">Ustal, ile książek chcesz przeczytać w tym roku.</p>
+            <p className="muted">Decide how many books you want to read this year.</p>
           )}
           <form action={setGoal} className="row">
             <input type="hidden" name="year" value={year} />
-            <input type="number" name="target" min={1} max={999} defaultValue={current?.target ?? 12} className="input-narrow" aria-label="Liczba książek" />
-            <button className="btn btn-primary btn-small">{current ? "Zmień cel" : "Ustal cel"}</button>
+            <input type="number" name="target" min={1} max={999} defaultValue={current?.target ?? 12} className="input-narrow" aria-label="Number of books" />
+            <button className="btn btn-primary btn-small">{current ? "Change goal" : "Set goal"}</button>
           </form>
         </div>
       </section>
 
       {allGoals.some((g) => g.year !== year) && (
         <section className="stack">
-          <h2>Poprzednie lata</h2>
+          <h2>Previous years</h2>
           <ul className="goal-list">
             {allGoals
               .filter((g) => g.year !== year)

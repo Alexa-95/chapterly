@@ -27,25 +27,25 @@ export default async function Dashboard() {
       <section className="hero">
         <div>
           <p className="eyebrow">{formatDate(new Date())}</p>
-          <h1>Miło Cię widzieć przy lekturze</h1>
+          <h1>Good to see you reading</h1>
           <p className="muted lead">
-            W tym roku przeczytano {booksWord(readThisYear.length)} — to {pagesWord(pagesThisYear)}.
+            This year you've read {booksWord(readThisYear.length)} — that's {pagesWord(pagesThisYear)}.
           </p>
           <div className="row">
-            <Link href="/search" className="btn btn-primary">Znajdź książkę</Link>
-            <Link href="/shelves" className="btn">Moje półki</Link>
+            <Link href="/search" className="btn btn-primary">Find a book</Link>
+            <Link href="/shelves" className="btn">My shelves</Link>
           </div>
         </div>
         <div className="hero-goal card">
           {goal ? (
             <>
               <GoalRing done={readThisYear.length} target={goal.target} />
-              <p className="muted small">Cel na {year}</p>
+              <p className="muted small">{year} goal</p>
             </>
           ) : (
             <>
-              <p className="muted small">Nie masz jeszcze celu na {year}.</p>
-              <Link href="/goals" className="btn btn-small">Ustal cel</Link>
+              <p className="muted small">You don't have a goal for {year} yet.</p>
+              <Link href="/goals" className="btn btn-small">Set a goal</Link>
             </>
           )}
         </div>
@@ -53,8 +53,8 @@ export default async function Dashboard() {
 
       <section>
         <div className="section-head">
-          <h2>Teraz czytam</h2>
-          <span className="muted small">{wantCount} w kolejce</span>
+          <h2>Currently reading</h2>
+          <span className="muted small">{wantCount} in the queue</span>
         </div>
         {reading.length ? (
           <div className="grid">
@@ -62,16 +62,16 @@ export default async function Dashboard() {
           </div>
         ) : (
           <div className="empty card">
-            <p>Żadna książka nie jest teraz otwarta.</p>
-            <Link href="/search" className="link">Poszukaj czegoś na dziś →</Link>
+            <p>No book is open right now.</p>
+            <Link href="/search" className="link">Find something for today →</Link>
           </div>
         )}
       </section>
 
       <section>
         <div className="section-head">
-          <h2>Ostatnio</h2>
-          <Link href="/history" className="link small">Cała historia →</Link>
+          <h2>Recently</h2>
+          <Link href="/history" className="link small">Full history →</Link>
         </div>
         {recent.length ? (
           <ul className="timeline card">
@@ -87,7 +87,7 @@ export default async function Dashboard() {
             ))}
           </ul>
         ) : (
-          <p className="muted">Tu pojawią się Twoje czytelnicze chwile.</p>
+          <p className="muted">Your reading moments will show up here.</p>
         )}
       </section>
     </div>

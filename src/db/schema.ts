@@ -6,7 +6,7 @@ export type BookStatus = (typeof BOOK_STATUSES)[number];
 
 const now = sql`(unixepoch())`;
 
-/** Książki w bibliotece użytkownika (id = identyfikator wolumenu Google Books). */
+/** Books in the user's library (id = Google Books volume ID). */
 export const books = sqliteTable("books", {
   id: text("id").primaryKey(),
   title: text("title").notNull(),
@@ -25,7 +25,7 @@ export const books = sqliteTable("books", {
   addedAt: integer("added_at", { mode: "timestamp" }).notNull().default(now),
 });
 
-/** Własne półki, np. „Ulubione”, „Kryminały”. */
+/** Custom shelves, e.g. "Favourites", "Crime". */
 export const shelves = sqliteTable("shelves", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
@@ -45,7 +45,7 @@ export const shelfBooks = sqliteTable(
   (t) => [primaryKey({ columns: [t.shelfId, t.bookId] })],
 );
 
-/** Roczne cele czytelnicze. */
+/** Yearly reading goals. */
 export const goals = sqliteTable("goals", {
   year: integer("year").primaryKey(),
   target: integer("target").notNull(),
@@ -54,7 +54,7 @@ export const goals = sqliteTable("goals", {
 export const ACTIVITY_TYPES = ["added", "started", "progress", "finished", "rated", "reviewed"] as const;
 export type ActivityType = (typeof ACTIVITY_TYPES)[number];
 
-/** Historia aktywności czytelniczej. */
+/** Reading activity history. */
 export const activity = sqliteTable("activity", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   bookId: text("book_id")
