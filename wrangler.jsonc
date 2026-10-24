@@ -16,7 +16,7 @@
 			"binding": "DB",
 			"database_name": "chapterly-db",
 			// Before deploying, replace with the ID from `npx wrangler d1 create chapterly-db`
-			"database_id": "00000000-0000-0000-0000-000000000000",
+			"database_id": "0c5d9e32-b2af-4253-8df4-838ed9035c6f",
 			"migrations_dir": "drizzle"
 		},
 		{
