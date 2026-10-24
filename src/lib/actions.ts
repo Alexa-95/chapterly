@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { activity, books, goals, shelfBooks, shelves, type BookStatus } from "@/db/schema";
 import { getDb } from "@/lib/db";
-import type { BookResult } from "@/lib/google-books";
+import type { BookResult } from "@/lib/catalog";
 
 function refresh() {
   revalidatePath("/", "layout");

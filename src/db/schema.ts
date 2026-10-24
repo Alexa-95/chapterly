@@ -6,7 +6,7 @@ export type BookStatus = (typeof BOOK_STATUSES)[number];
 
 const now = sql`(unixepoch())`;
 
-/** Books in the user's library (id = Google Books volume ID). */
+/** Books in the user's library (id = Google Books volume ID or Open Library work ID). */
 export const books = sqliteTable("books", {
   id: text("id").primaryKey(),
   title: text("title").notNull(),

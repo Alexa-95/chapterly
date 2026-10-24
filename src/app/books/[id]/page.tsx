@@ -4,7 +4,7 @@ import { BOOK_STATUSES, books, shelfBooks, shelves } from "@/db/schema";
 import { addBook, removeBook, saveReview, setStatus, toggleShelf, updateProgress } from "@/lib/actions";
 import { getDb } from "@/lib/db";
 import { STATUS_LABELS, formatDate } from "@/lib/format";
-import { getVolume } from "@/lib/google-books";
+import { getBook } from "@/lib/catalog";
 import BookCover from "@/components/BookCover";
 import ProgressBar from "@/components/ProgressBar";
 import StarRating from "@/components/StarRating";
@@ -15,7 +15,7 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
   const book = await db.query.books.findFirst({ where: eq(books.id, id) });
 
   if (!book) {
-    const volume = await getVolume(id);
+    const volume = await getBook(id);
     if (!volume) notFound();
     return (
       <article className="book-detail">

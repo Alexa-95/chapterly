@@ -2,9 +2,9 @@
 
 An app for tracking your books, reading and your own reviews.
 
-**Features:** book search (Google Books), shelves (statuses + custom shelves), reading goals, ratings and reviews, stats, activity history.
+**Features:** book search (Open Library, with Google Books as a fallback), shelves (statuses + custom shelves), reading goals, ratings and reviews, stats, activity history.
 
-**Stack:** Next.js 16 (App Router, Server Actions) · Google Books API · Cloudflare D1 · Drizzle ORM · OpenNext (deployed to Cloudflare Workers)
+**Stack:** Next.js 16 (App Router, Server Actions) · Open Library API · Google Books API · Cloudflare D1 · Drizzle ORM · OpenNext (deployed to Cloudflare Workers)
 
 ## Running locally
 
@@ -45,7 +45,8 @@ src/
   app/            pages: dashboard, search, shelves, books/[id], goals, stats, history
   components/     covers, stars, progress bar, goal ring, chart
   db/schema.ts    tables: books, shelves, shelf_books, goals, activity
-  lib/            actions.ts (Server Actions), google-books.ts, queries.ts, stats.ts
+  lib/            actions.ts (Server Actions), catalog.ts (search across sources), open-library.ts,
+                  google-books.ts, queries.ts, stats.ts
 drizzle/          SQL migrations
 ```
 

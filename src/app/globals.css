@@ -261,6 +261,27 @@ textarea { resize: vertical; line-height: 1.6; }
 .result-body { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
 .result-title { font-family: var(--font-serif), serif; font-size: 1.02rem; line-height: 1.3; }
 .result-title:hover { color: var(--sage-deep); }
+.searching { display: flex; align-items: center; gap: 0.6rem; }
+.spinner {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  border: 2px solid var(--sage-soft);
+  border-top-color: var(--sage-deep);
+  animation: spin 0.8s linear infinite;
+}
+.skeleton .cover, .skeleton-lines span { background: var(--line); animation: pulse 1.4s ease-in-out infinite; }
+.skeleton-lines { flex: 1; padding-top: 0.2rem; }
+.skeleton-lines span { display: block; height: 0.8rem; border-radius: 999px; }
+.skeleton-lines span:nth-child(1) { width: 80%; height: 1rem; }
+.skeleton-lines span:nth-child(2) { width: 55%; }
+.skeleton-lines span:nth-child(3) { width: 40%; margin-top: 0.5rem; height: 1.6rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 2.4s; }
+  .skeleton .cover, .skeleton-lines span { animation: none; }
+}
 
 /* Shelves */
 .shelves-layout { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; align-items: start; }
